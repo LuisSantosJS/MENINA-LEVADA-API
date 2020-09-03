@@ -9,15 +9,21 @@ const AdminController = {
         if (password == null) {
             return response.json({ message: 'error', res: 'Preencha o campo senha' })
         }
-        knex('admin').where('id', 1).select('admin.password').then(res => {
+        knex('admin').where('id', 1).select('*').then(res => {
             const hash = res[0].password;
+            const mail = res[0].email;
             const value = bcrypt.compareSync(String(password), String(hash));
-            if (value) {
-                return response.json({ message: 'success', res: 'Login realizado!' })
+            if (!value) {
+                return response.json({ message: 'error', res: 'Senha incorreta!' })
             }
-            return response.json({ message: 'error', res: 'Senha incorreta!' })
+            if(mail !== email){
+                return response.json({ message: 'error', res: 'Usuário não cadastrado e sem privilégios de administrador' })
+            }
+            return response.json({ message: 'success', res: 'Login realizado!' })
+
 
         })
+
     },
     async update(request, response) {
         const { password } = request.body;

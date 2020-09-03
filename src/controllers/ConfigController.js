@@ -1,6 +1,13 @@
 const knex = require('../database/connection');
 
 const ConfigController = {
+    async index(request, response) {
+        knex('config').where('id', 1).select('*').then(res => {
+            return response.json({ message: 'success', res: res })
+        }).catch((res) => {
+            return response.json({ message: 'error', res: res })
+        })
+    },
     async origin(request, response) {
 
     },
@@ -8,7 +15,7 @@ const ConfigController = {
 
     },
     async days(request, response) {
-        
+
     }
 }
 
