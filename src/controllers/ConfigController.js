@@ -1,5 +1,4 @@
 const knex = require('../database/connection');
-
 const ConfigController = {
     async index(request, response) {
         knex('config').where('id', 1).select('*').then(res => {

@@ -21,9 +21,7 @@ const AdminController = {
             }
             return response.json({ message: 'success', res: 'Login realizado!' })
 
-
         })
-
     },
     async update(request, response) {
         const { password } = request.body;
