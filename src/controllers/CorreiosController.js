@@ -1,5 +1,9 @@
 const knex = require('../database/connection');
 const { calcularPrecoPrazo, rastrearEncomendas } = require("correios-brasil");
+const PDFKit = require('pdfkit');
+const path = require('path');
+const fs = require('fs');
+const express = require('express')
 const CorreiosController = {
     async index(request, response) {
         const {
@@ -75,6 +79,79 @@ const CorreiosController = {
         } catch (e) {
             console.log(e)
         }
+    },
+    async pdf(request, response) {
+        const {
+            code,
+            localidade,
+            name,
+            produto,
+            status
+        } = request.body;
+
+        const pdf = new PDFKit({
+            size: [700, 400],
+
+            margins: { // by default, all are 72
+                top: 10,
+                bottom: 10,
+                left: 10,
+                right: 10
+            },
+        });
+        pdf.image(path.resolve(__dirname, '..', 'assets', 'logomenina.png'), 170, 30, { scale: 0.18, align: "center" });
+        pdf.image(path.resolve(__dirname, '..', 'assets', 'certificate.png'), pdf.page.width - 130, pdf.page.height - 130, { height: 80, width: 80, align: "center" });
+        pdf
+            .fontSize('18')
+            .fillColor('#141414')
+            .text(`Cliente: ${name}`, 50, 150, {
+                align: 'left'
+            })
+        pdf
+            .fontSize('16')
+            .fillColor('#141414')
+            .text(`Localidade: ${localidade}`, 50, 200, {
+                align: 'left'
+            })
+        pdf
+            .fontSize('16')
+            .fillColor('#141414')
+            .text(`Produto: ${produto}`, 50, 250, {
+                align: 'left'
+            })
+        pdf
+            .fontSize('16')
+            .fillColor('#141414')
+            .text(`Situação: ${status}`, 50, 300, {
+                align: 'left'
+            })
+
+        pdf
+            .lineTo(300, 100)
+            .fontSize('16')
+            .fillColor('#141414')
+            .text(`Código: ${code}`, 50, 350, {
+                align: 'left'
+
+            })
+
+        pdf.pipe(fs.createWriteStream(path.resolve(__dirname, '..', 'documents', `${code}.pdf`)));
+        pdf.end();
+        return response.json({ message: 'success' })
+    },
+    async download(request, response) {
+        const { id } = request.query;
+        if (id == null) {
+            return response.json({ message: 'error', res: 'Falta o ID do certificado' })
+        }
+        // const file = `src/documents/${id}.pdf`;
+        var data = fs.readFileSync(path.resolve(__dirname, '..', 'documents', `${id}.pdf`))
+        response.setHeader("Content-type", "application/pdf");
+        response.setHeader(
+            "Content-disposition",
+            'inline; filename="' + id + ".pdf" + '"'
+        )
+        return response.send(data);
     }
 }
 

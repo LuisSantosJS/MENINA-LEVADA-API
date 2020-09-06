@@ -14,5 +14,7 @@ routes.post('/config/update/pricing', ConfigController.price);
 
 routes.post('/calc', CorreiosController.index)
 routes.post('/rast', CorreiosController.rast)
+routes.post('/rast/certificado', CorreiosController.pdf);
+routes.get('/download/certificado', CorreiosController.download);
 
 module.exports = routes;
