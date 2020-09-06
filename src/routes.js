@@ -13,5 +13,6 @@ routes.post('/config/update/days', ConfigController.days);
 routes.post('/config/update/pricing', ConfigController.price);
 
 routes.post('/calc', CorreiosController.index)
+routes.post('/rast', CorreiosController.rast)
 
 module.exports = routes;
