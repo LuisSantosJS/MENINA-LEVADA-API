@@ -2,6 +2,7 @@ const knex = require('../database/connection');
 const { calcularPrecoPrazo, rastrearEncomendas } = require("correios-brasil");
 const PDFKit = require('pdfkit');
 const path = require('path');
+const moment = require('moment')
 const fs = require('fs');
 const express = require('express')
 const CorreiosController = {
@@ -105,30 +106,30 @@ const CorreiosController = {
                 right: 10
             },
         });
-        pdf.image(path.resolve(__dirname, '..', 'assets', 'logomenina.png'), 170, 30, { scale: 0.18, align: "center" });
+        pdf.image(path.resolve(__dirname, '..', 'assets', 'logomenina.png'), 240, 30, { scale: 0.12, align: "center" });
         pdf.image(path.resolve(__dirname, '..', 'assets', 'certificate.png'), pdf.page.width - 130, pdf.page.height - 130, { height: 80, width: 80, align: "center" });
         pdf
-            .fontSize('18')
+            .fontSize('16')
             .fillColor('#141414')
-            .text(`Cliente: ${name}`, 50, 150, {
+            .text(`Cliente: ${name}`, 50, 120, {
                 align: 'left'
             })
         pdf
             .fontSize('16')
             .fillColor('#141414')
-            .text(`Localidade: ${localidade}`, 50, 200, {
+            .text(`Localidade: ${localidade}`, 50, 170, {
                 align: 'left'
             })
         pdf
             .fontSize('16')
             .fillColor('#141414')
-            .text(`Produto: ${produto}`, 50, 250, {
+            .text(`Produto: ${produto}`, 50, 220, {
                 align: 'left'
             })
         pdf
             .fontSize('16')
             .fillColor('#141414')
-            .text(`Situação: ${status}`, 50, 300, {
+            .text(`Situação: ${status}`, 50, 270, {
                 align: 'left'
             })
 
@@ -136,8 +137,24 @@ const CorreiosController = {
             .lineTo(300, 100)
             .fontSize('16')
             .fillColor('#141414')
-            .text(`Código: ${code}`, 50, 350, {
+            .text(`Código: ${code}`, 50, 320, {
                 align: 'left'
+
+            })
+        pdf
+            .lineTo(300, 100)
+            .fontSize('16')
+            .fillColor('#141414')
+            .text(`Para acompanhar o produto acesse: http://localhost:3000/rastrear `, 50, 370, {
+                align: 'left'
+
+            })
+        pdf
+            .lineTo(300, 100)
+            .fontSize('12')
+            .fillColor('#141414')
+            .text(`${moment(new Date()).format('L')}`, (pdf.page.width - 150), 40, {
+                align: 'center'
 
             })
 
