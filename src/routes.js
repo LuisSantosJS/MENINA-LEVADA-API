@@ -8,13 +8,12 @@ routes.post('/admin/login', AdminController.login);
 routes.post('/admin/update', AdminController.update);
 
 routes.get('/config', ConfigController.index);
-routes.post('/config/update/origin', ConfigController.origin);
-routes.post('/config/update/days', ConfigController.days);
-routes.post('/config/update/pricing', ConfigController.price);
+routes.post('/config/update', ConfigController.update);
 
 routes.post('/calc', CorreiosController.index)
 routes.post('/rast', CorreiosController.rast)
 routes.post('/rast/certificado', CorreiosController.pdf);
 routes.get('/download/certificado', CorreiosController.download);
+
 
 module.exports = routes;

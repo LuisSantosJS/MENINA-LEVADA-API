@@ -36,11 +36,17 @@ const CorreiosController = {
         }
 
         const resp = await knex('config').where('id', 1).select('*');
+        const formatCheck = () => {
+            if ((nVlPeso <= 1) && (nVlComprimento < 20) && (nVlAltura < 20) && (nVlLargura < 20)) {
+                return '3'
+            }
+            return '1'
+        }
         const arg = {
             sCepOrigem: String(resp[0].origin),
             sCepDestino,
             nVlPeso,
-            nCdFormato: '1',
+            nCdFormato: formatCheck(),
             nVlComprimento: Number(nVlComprimento),
             nVlAltura: Number(nVlAltura),
             nVlLargura: Number(nVlLargura),
@@ -74,7 +80,7 @@ const CorreiosController = {
         }
         try {
             const res = await rastrearEncomendas(Array(code));
-            console.log(res)
+            // console.log(res)
             return response.json(res[0])
         } catch (e) {
             console.log(e)
