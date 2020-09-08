@@ -138,7 +138,7 @@ const CorreiosController = {
             .lineTo(300, 100)
             .fontSize('16')
             .fillColor('#141414')
-            .text(`Para acompanhar o produto acesse: http://localhost:3000/rastrear `, 50, 370, {
+            .text(`Para acompanhar o produto acesse: https://mlevada.herokuapp.com/rastrear `, 50, 370, {
                 align: 'left'
 
             })
