@@ -93,7 +93,6 @@ const CorreiosController = {
             localidade,
             name,
             produto,
-            status
         } = request.body;
 
         const pdf = new PDFKit({
@@ -111,25 +110,19 @@ const CorreiosController = {
         pdf
             .fontSize('16')
             .fillColor('#141414')
-            .text(`Cliente: ${name}`, 50, 120, {
+            .text(`Cliente: ${name}`, 50, 170, {
                 align: 'left'
             })
         pdf
             .fontSize('16')
             .fillColor('#141414')
-            .text(`Localidade: ${localidade}`, 50, 170, {
+            .text(`Localidade: ${localidade}`, 50, 220, {
                 align: 'left'
             })
         pdf
             .fontSize('16')
             .fillColor('#141414')
-            .text(`Produto: ${produto}`, 50, 220, {
-                align: 'left'
-            })
-        pdf
-            .fontSize('16')
-            .fillColor('#141414')
-            .text(`Situação: ${status}`, 50, 270, {
+            .text(`Produto: ${produto}`, 50, 270, {
                 align: 'left'
             })
 
