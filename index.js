@@ -1,7 +1,7 @@
 const express = require('express');
 const routes = require('./src/routes');
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 8877;
 
 app.use(express.json());
 
