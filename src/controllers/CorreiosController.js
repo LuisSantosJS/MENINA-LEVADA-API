@@ -4,6 +4,13 @@ const PDFKit = require('pdfkit');
 const path = require('path');
 const moment = require('moment')
 const fs = require('fs');
+
+
+
+var FRONT_URL = 'https://mlevada.herokuapp.com';
+
+
+
 const CorreiosController = {
     async index(request, response) {
         const {
@@ -137,7 +144,7 @@ const CorreiosController = {
             .lineTo(300, 100)
             .fontSize('16')
             .fillColor('#141414')
-            .text(`Para acompanhar o produto acesse: https://mlevada.herokuapp.com/rastrear `, 50, 370, {
+            .text(`Para acompanhar o produto acesse: ${FRONT_URL}/rastrear `, 50, 370, {
                 align: 'left'
 
             })
