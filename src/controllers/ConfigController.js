@@ -80,11 +80,13 @@ const ConfigController = {
         }
 
         fs.unlinkSync(path.resolve(__dirname, '..', 'documents', `${code}.pdf`))
-        knex('historic').where('code', code).delete().then(res => {
+        knex('historic').where('code', code).delete().then(() => {
             knex('historic').select('*').then((res) => {
-                io.emit('historic', res)
+                io.emit('historic', res);
+                return response.json({ message: 'success' })
+            }).catch(() => {
+                return response.json({ message: 'error' })
             })
-            return response.json({ message: 'success' })
         }).catch(() => {
             return response.json({ message: 'error' })
         })
