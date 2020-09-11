@@ -1,5 +1,7 @@
 const knex = require('../database/connection');
 const fs = require('fs');
+const moment = require('moment')
+
 const path = require('path');
 const ConfigController = {
     async index(request, response) {
@@ -65,6 +67,7 @@ const ConfigController = {
             nome_cliente,
             localidade,
             code,
+            date: moment(new Date()).format('L'),
             produto
         }]).then(() => {
             return response.json({ message: 'success' })

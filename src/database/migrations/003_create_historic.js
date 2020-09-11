@@ -5,6 +5,7 @@ exports.up = async (knex) => {
         table.float('nome_cliente',255).notNullable();
         table.string('localidade',255).notNullable();
         table.string('code', 255).notNullable();
+        table.string('date', 255).notNullable();
         table.string('produto', 255).notNullable();
     });
 }
