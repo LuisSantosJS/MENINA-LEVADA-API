@@ -22,7 +22,7 @@ routes.post('/config/update', ConfigController.update);
 routes.post('/calc', CorreiosController.index)
 routes.post('/rast', CorreiosController.rast)
 routes.post('/rast/certificado', CorreiosController.pdf);
-routes.get('/download/certificado/:id', CorreiosController.download);
+routes.get('/download/certificado', CorreiosController.download);
 
 
 
