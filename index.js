@@ -15,14 +15,11 @@ io.on("connection", socket => {
 
 });
 app.io = io;
+app.get('/', (req, res) => res.json({ message: 'API FUNCIONANDO' }));
+app.use(routes);
 app.use(function(req,res,next){
     req.io = io;
     next();
 });
-
-
-app.get('/', (req, res) => res.json({ message: 'API FUNCIONANDO' }));
-
-app.use(routes);
 
 server.listen(port, () => console.log(`Server is running on port ${port}`));

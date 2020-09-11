@@ -4,7 +4,6 @@ const PDFKit = require('pdfkit');
 const path = require('path');
 const moment = require('moment')
 const fs = require('fs');
-const express = require('express')
 const CorreiosController = {
     async index(request, response) {
         const {
