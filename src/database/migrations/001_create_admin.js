@@ -4,6 +4,7 @@ exports.up = async (knex) => {
         table.increments('id').primary().unique();
         table.string('email', 255).notNullable();
         table.string('password',255).notNullable();
+        table.boolean('disabled').notNullable();
     });
 }
 

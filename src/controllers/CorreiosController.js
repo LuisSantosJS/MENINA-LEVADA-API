@@ -156,7 +156,7 @@ const CorreiosController = {
         return response.json({ message: 'success' })
     },
     async download(request, response) {
-        const { id } = request.query;
+        const { id } = request.params;
         if (id == null) {
             return response.json({ message: 'error', res: 'Falta o ID do certificado' })
         }

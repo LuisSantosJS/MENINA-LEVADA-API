@@ -4,12 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon",
     "start": "node index"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@types/socket.io": "^2.1.11",
     "bcryptjs": "^2.4.3",
     "correios-brasil": "^2.0.4",
     "cors": "^2.8.5",
@@ -18,6 +20,7 @@
     "moment": "^2.27.0",
     "node-correios": "^3.0.2",
     "pdfkit": "^0.11.0",
+    "socket.io": "^2.3.0",
     "sqlite3": "^5.0.0"
   },
   "devDependencies": {
