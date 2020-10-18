@@ -6,7 +6,7 @@ const port = process.env.PORT || 8877;
 const http = require('http');
 const IO = require('socket.io');
 
-app.use(express.json());
+app.use(express.json({limit: '20mb', extended: true}));
 app.use(cors());
 const server = http.createServer(app)
 const io = IO.listen(server);

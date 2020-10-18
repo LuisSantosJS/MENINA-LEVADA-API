@@ -159,7 +159,9 @@ const CorreiosController = {
 
         pdf.pipe(fs.createWriteStream(path.resolve(__dirname, '..', 'documents', `${code}.pdf`)));
         pdf.end();
-        return response.json({ message: 'success' })
+
+
+        return response.json({ message: 'success' });
     },
     async download(request, response) {
         const { id } = request.query;

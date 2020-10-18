@@ -2,9 +2,12 @@
 const path = require('path');
 
 const knex = require('knex')({
-  client: 'sqlite3',
+  client: 'mysql',
   connection: {
-      filename: path.resolve(__dirname, 'db.sqlite')
+    host : 'us-cdbr-east-02.cleardb.com',
+    user : 'b61f1f184e14b2',
+    password : 'ca43e180',
+    database : 'heroku_889f2ad10665e39'
   },
   useNullAsDefault: true
 });
