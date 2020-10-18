@@ -30,8 +30,8 @@ const ConfigController = {
             origin,
             addition_price,
             addition_days
-        }).then(() => {
-            return response.json({ message: 'success' })
+        }).then((res) => {
+            return response.json({ message: 'success', res })
         }).catch((res) => {
             return response.json({ message: 'error', res: res })
         })
