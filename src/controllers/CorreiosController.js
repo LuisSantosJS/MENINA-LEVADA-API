@@ -64,17 +64,17 @@ const CorreiosController = {
             const res = await calcularPrecoPrazo(arg);
             return response.json({
                 Codigo: res.Codigo,
-                Valor: Number(Number(String(res.Valor).replace(',', '.')) + resp[0].addition_price),
-                PrazoEntrega: Number(Number(String(res.PrazoEntrega).replace(',', '.')) + resp[0].addition_days),
-                ValorSemAdicionais: Number(Number(String(res.Valor).replace(',', '.')) + resp[0].addition_price),
+                Valor: Number(Number(String(res.Valor).replace(',', '.')) + Number(resp[0].addition_price)),
+                PrazoEntrega: Number(Number(String(res.PrazoEntrega).replace(',', '.')) + Number(resp[0].addition_days)),
+                ValorSemAdicionais: Number(Number(String(res.Valor).replace(',', '.')) + Number(resp[0].addition_price)),
                 ValorMaoPropria: res.ValorMaoPropria,
                 ValorAvisoRecebimento: res.ValorAvisoRecebimento,
                 ValorDeclarado: res.ValorDeclarado,
                 EntregaDomiciliar: res.EntregaDomiciliar,
                 EntregaSabado: res.EntregaSabado,
                 Erro: res.Erro,
-                ValorAdd: resp[0].addition_price,
-                DaysAdd: resp[0].addition_days
+                ValorAdd: Number(resp[0].addition_price),
+                DaysAdd: Number(resp[0].addition_days)
             })
         } catch (e) {
             return response.json({ message: 'error', res: e })
