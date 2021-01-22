@@ -145,7 +145,10 @@ const CorreiosController = {
             .fontSize('16')
             .fillColor('#141414')
             .text(`Para acompanhar o produto acesse: ${FRONT_URL}/rastrear `, 50, 370, {
-                align: 'left'
+                align: 'left',
+                link: `${FRONT_URL}/rastrear`,
+                underline: true
+
 
             })
         pdf
