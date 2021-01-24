@@ -1,6 +1,8 @@
 const knex = require('../database/connection');
 const { calcularPrecoPrazo, rastrearEncomendas } = require("correios-brasil");
 const PDFKit = require('pdfkit');
+let Correios = require('node-correios');
+let correios = new Correios();
 const path = require('path');
 const moment = require('moment')
 const fs = require('fs');
@@ -49,36 +51,69 @@ const CorreiosController = {
             }
             return '1'
         }
-        const arg = {
+        const args = {
             sCepOrigem: String(resp[0].origin),
-            sCepDestino,
-            nVlPeso,
+            sCepDestino: String(sCepDestino),
+            nVlPeso: String(nVlPeso),
             nCdFormato: formatCheck(),
             nVlComprimento: Number(nVlComprimento),
             nVlAltura: Number(nVlAltura),
             nVlLargura: Number(nVlLargura),
-            nCdServico,
-            nVlDiametro: 0
+            nCdServico: [String(nCdServico)],
+            nVlDiametro: "0"
         }
-        try {
-            const res = await calcularPrecoPrazo(arg);
+
+
+        // correios.calcPreco(args).then((res) => {
+        //     return response.json({ message: 'success', res: res })
+        // }).catch((eer) => {
+        //     return response.json(eer)
+        // })
+
+
+
+
+        calcularPrecoPrazo(args).then((res) => {
             return response.json({
-                Codigo: res.Codigo,
-                Valor: Number(Number(String(res.Valor).replace(',', '.')) + Number(resp[0].addition_price)),
-                PrazoEntrega: Number(Number(String(res.PrazoEntrega).replace(',', '.')) + Number(resp[0].addition_days)),
-                ValorSemAdicionais: Number(Number(String(res.Valor).replace(',', '.')) + Number(resp[0].addition_price)),
-                ValorMaoPropria: res.ValorMaoPropria,
-                ValorAvisoRecebimento: res.ValorAvisoRecebimento,
-                ValorDeclarado: res.ValorDeclarado,
-                EntregaDomiciliar: res.EntregaDomiciliar,
-                EntregaSabado: res.EntregaSabado,
-                Erro: res.Erro,
+                Codigo: res[0].Codigo,
+                Valor: Number(Number(String(res[0].Valor).replace(',', '.')) + Number(resp[0].addition_price)),
+                PrazoEntrega: Number(Number(String(res[0].PrazoEntrega).replace(',', '.')) + Number(resp[0].addition_days)),
+                ValorSemAdicionais: Number(Number(String(res[0].Valor).replace(',', '.')) + Number(resp[0].addition_price)),
+                ValorMaoPropria: res[0].ValorMaoPropria,
+                ValorAvisoRecebimento: res[0].ValorAvisoRecebimento,
+                ValorDeclarado: res[0].ValorDeclarado,
+                EntregaDomiciliar: res[0].EntregaDomiciliar,
+                EntregaSabado: res[0].EntregaSabado,
+                Erro: res[0].Erro,
                 ValorAdd: Number(resp[0].addition_price),
                 DaysAdd: Number(resp[0].addition_days)
             })
-        } catch (e) {
-            return response.json({ message: 'error', res: e })
-        }
+        })
+
+        // try {
+        // const res = await calcularPrecoPrazo(args);
+        // return response.json(res)
+        // return response.json({
+        //     Codigo: res.Codigo,
+        //     Valor: Number(Number(String(res.Valor).replace(',', '.')) + Number(resp[0].addition_price)),
+        //     PrazoEntrega: Number(Number(String(res.PrazoEntrega).replace(',', '.')) + Number(resp[0].addition_days)),
+        //     ValorSemAdicionais: Number(Number(String(res.Valor).replace(',', '.')) + Number(resp[0].addition_price)),
+        //     ValorMaoPropria: res.ValorMaoPropria,
+        //     ValorAvisoRecebimento: res.ValorAvisoRecebimento,
+        //     ValorDeclarado: res.ValorDeclarado,
+        //     EntregaDomiciliar: res.EntregaDomiciliar,
+        //     EntregaSabado: res.EntregaSabado,
+        //     Erro: res.Erro,
+        //     ValorAdd: Number(resp[0].addition_price),
+        //     DaysAdd: Number(resp[0].addition_days)
+        // })
+
+
+
+        // } catch (e) {
+
+        //     return response.json({ message: 'error', res: e })
+        // }
     },
     async rast(request, response) {
         const { code } = request.body;

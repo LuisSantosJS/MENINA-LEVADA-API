@@ -13,7 +13,7 @@
   "dependencies": {
     "@types/socket.io": "^2.1.11",
     "bcryptjs": "^2.4.3",
-    "correios-brasil": "^2.0.4",
+    "correios-brasil": "^2.1.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "knex": "^0.21.6",
