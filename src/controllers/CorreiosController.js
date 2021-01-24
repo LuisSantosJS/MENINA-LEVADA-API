@@ -1,5 +1,5 @@
 const knex = require('../database/connection');
-const { calcularPrecoPrazo, rastrearEncomendas } = require("correios-brasil");
+const { calcularPrecoPrazo, rastrearEncomendas, consultarCep } = require("correios-brasil");
 const PDFKit = require('pdfkit');
 let Correios = require('node-correios');
 let correios = new Correios();
@@ -214,6 +214,13 @@ const CorreiosController = {
             'inline; filename="' + id + ".pdf" + '"'
         )
         return response.send(data);
+    },
+    async cep(request, response) {
+        const { cep } = request.params;
+        consultarCep(cep).then((res) => {
+            return response.json({ message: 'success', res: res.localidade })
+        })
+
     }
 }
 

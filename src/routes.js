@@ -20,6 +20,7 @@ routes.get('/config', ConfigController.index);
 routes.post('/config/update', ConfigController.update);
 
 routes.post('/calc', CorreiosController.index)
+routes.get('/cep/:cep', CorreiosController.cep)
 routes.post('/rast', CorreiosController.rast)
 routes.post('/rast/certificado', CorreiosController.pdf);
 routes.get('/download/certificado', CorreiosController.download);
